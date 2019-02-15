@@ -7,7 +7,11 @@ import router from './router'
 import './assets/css/global.css'
 
 // 引入axios并配置
-
+import axios from 'axios'
+// 配置axios
+axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1'
+// 给Vue配置axios对象
+Vue.prototype.$http = axios
 
 
 // 引入图标字体

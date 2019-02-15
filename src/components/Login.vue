@@ -51,8 +51,16 @@ export default {
     methods:{
         //设置登录跳转
         login(){
-            this.$refs.loginFormRef.validate(valid=>{
+            this.$refs.loginFormRef.validate( async valid=>{
                 if(valid===true){
+                    // 有请axios
+                   const{ data : res }= await this.$http.post('/login',this.loginForm)
+                   console.log(res)
+                   if(res.meta.status !== 200){
+                      return this.$message.error(res.meta.msg)
+                   }
+                //    通过浏览器的sessionstorage保存后台返回来的token数据
+                   window.sessionStorage.setItem('token',res.data.token)
             //设置路由从定向  注意 this的指向问题 这里的this指向validate的回调函数,要想指向vUE,必须将回调函数改为箭头函数
                     this.$router.push('/home')
                  }
